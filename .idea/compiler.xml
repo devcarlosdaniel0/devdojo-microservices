@@ -9,6 +9,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="course" />
         <module name="core" />
+        <module name="discovery" />
+        <module name="gateway" />
       </profile>
     </annotationProcessing>
   </component>
@@ -17,6 +19,8 @@
       <module name="core" options="-parameters" />
       <module name="course" options="-parameters" />
       <module name="course (1)" options="" />
+      <module name="discovery" options="-parameters" />
+      <module name="gateway" options="-parameters" />
     </option>
   </component>
 </project>
