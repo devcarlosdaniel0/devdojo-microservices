@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: course-service
+          uri: lb://course
+          predicates:
+            - Path=/v1/admin/course/**
+
+server:
+  port: 8080
+  servlet:
+    context-path: /gateway
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
