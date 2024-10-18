@@ -1,5 +1,6 @@
 package academy.devdojo.youtube.auth.security.config;
 
+import academy.devdojo.youtube.auth.security.filter.JwtUsernameAndPasswordAuthenticationFilter;
 import academy.devdojo.youtube.core.property.JwtConfiguration;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,13 +13,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -33,9 +29,10 @@ public class SecurityCredentialsConfig {
                 .cors((cors) -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling((exp) -> exp.authenticationEntryPoint((req, resp, e) -> resp.sendError(HttpServletResponse.SC_UNAUTHORIZED)))
-                .addFilter(new UsernamePasswordAuthenticationFilter())
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authManager(http), jwtConfiguration))
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(jwtConfiguration.getLoginUrl()).permitAll()
+                        .requestMatchers("/test").permitAll()
                         .requestMatchers("/course/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated());
 

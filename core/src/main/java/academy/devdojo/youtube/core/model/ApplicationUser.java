@@ -24,6 +24,7 @@ public class ApplicationUser implements AbstractEntity {
 
     @NotNull(message = "The field 'password' can't be null")
     @Column(nullable = false)
+    @ToString.Exclude
     private String password;
 
     @NotNull(message = "The field 'role' can't be null")
