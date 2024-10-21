@@ -10,7 +10,7 @@ eureka:
 
 spring:
   application:
-    name: course
+    name: course-api
   jpa:
     show-sql: false
     hibernate:
