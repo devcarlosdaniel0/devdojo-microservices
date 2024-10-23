@@ -10,7 +10,7 @@ eureka:
 
 spring:
   application:
-    name: auth
+    name: auth-api
   jpa:
     show-sql: false
     hibernate:

@@ -15,8 +15,8 @@ import java.util.Collection;
 
 import static org.springframework.security.core.authority.AuthorityUtils.commaSeparatedStringToAuthorityList;
 
-@Service
 @RequiredArgsConstructor
+@Service
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final ApplicationUserRepository applicationUserRepository;
@@ -24,6 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("Searching in the database the user by username '{}'", username);
+
         ApplicationUser applicationUser = applicationUserRepository.findByUsername(username);
 
         log.info("ApplicationUser found '{}'", applicationUser);
