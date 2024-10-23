@@ -1,5 +1,6 @@
 package academy.devdojo.youtube.authorization.security.service;
 
+import academy.devdojo.youtube.core.property.JwtConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtService {
     private final JwtEncoder encoder;
+    private final JwtConfiguration jwtConfiguration;
 
     public String generateToken(Authentication authentication) {
         if (authentication == null) {
@@ -22,7 +24,7 @@ public class JwtService {
         }
 
         Instant now = Instant.now();
-        long expiry = 3600L;
+        long expiry = jwtConfiguration.getExpiration();
 
         String scopes = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
