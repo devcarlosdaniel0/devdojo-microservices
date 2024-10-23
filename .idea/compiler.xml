@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="authorization" />
         <module name="course" />
         <module name="core" />
         <module name="auth" />
@@ -18,6 +19,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="auth" options="-parameters" />
+      <module name="authorization" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="course" options="-parameters" />
       <module name="course (1)" options="" />

@@ -1,0 +1,33 @@
+server:
+  port: 8083
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+
+jwt:
+  private:
+    key: classpath:private_key.pem
+  public:
+    key: classpath:public_key.pem
+
+spring:
+  application:
+    name: authorization
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/devdojo?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: devdojo
+    driver-class-name: com.mysql.cj.jdbc.Driver
