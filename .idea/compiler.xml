@@ -12,10 +12,12 @@
         <module name="auth" />
         <module name="discovery" />
         <module name="gateway" />
+        <module name="token" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="authorization" target="17" />
+      <module name="tokenn" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -27,6 +29,7 @@
       <module name="course (1)" options="" />
       <module name="discovery" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="token" options="-parameters" />
     </option>
   </component>
 </project>

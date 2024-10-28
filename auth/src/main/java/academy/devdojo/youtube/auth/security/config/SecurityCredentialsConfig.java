@@ -1,8 +1,8 @@
 package academy.devdojo.youtube.auth.security.config;
 
 import academy.devdojo.youtube.auth.security.filter.JwtUsernameAndPasswordAuthenticationFilter;
-import academy.devdojo.youtube.auth.security.user.UserDetailsServiceImpl;
 import academy.devdojo.youtube.core.property.JwtConfiguration;
+import academy.devdojo.youtube.token.creator.TokenCreator;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,8 +24,9 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityCredentialsConfig {
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsService userDetailsService;
     private final JwtConfiguration jwtConfiguration;
+    private final TokenCreator tokenCreator;
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
@@ -45,7 +47,7 @@ public class SecurityCredentialsConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers(jwtConfiguration.getLoginUrl()).permitAll()
                         .requestMatchers("/course/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-                .addFilterBefore(new JwtUsernameAndPasswordAuthenticationFilter(authManager, jwtConfiguration), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtUsernameAndPasswordAuthenticationFilter(authManager, jwtConfiguration, tokenCreator), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
